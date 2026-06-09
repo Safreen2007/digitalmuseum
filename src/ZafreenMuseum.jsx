@@ -676,7 +676,7 @@ function FocusRail({ paintings, likes, onLike, onActivePainting, onLooped }) {
           const isCtr=offset===0, dist=Math.abs(offset);
           return (
             <div key={active+offset} onClick={()=>{ if(offset!==0)setActive(a=>a+offset); }}
-              style={{ position:"absolute",width:isCtr?320:210,transform:`translateX(${offset*300}px) translateZ(${-dist*160}px) scale(${isCtr?1:0.82}) rotateY(${offset*-18}deg)`,opacity:isCtr?1:Math.max(0.1,1-dist*0.45),filter:`blur(${isCtr?0:dist*5}px)`,transition:"all 0.45s cubic-bezier(0.34,1.56,0.64,1)",zIndex:isCtr?10:5-dist,cursor:isCtr?"default":"pointer",borderRadius:12 }}>
+              style={{ position:"absolute",width:isCtr?"min(300px,78vw)":"min(180px,45vw)",transform:`translateX(${offset*300}px) translateZ(${-dist*160}px) scale(${isCtr?1:0.82}) rotateY(${offset*-18}deg)`,opacity:isCtr?1:Math.max(0.1,1-dist*0.45),filter:`blur(${isCtr?0:dist*5}px)`,transition:"all 0.45s cubic-bezier(0.34,1.56,0.64,1)",zIndex:isCtr?10:5-dist,cursor:isCtr?"default":"pointer",borderRadius:12 }}>
               <div style={{ position:"relative",borderRadius:12,overflow:"hidden",boxShadow:isCtr?"0 24px 64px rgba(0,0,0,0.6)":"0 8px 24px rgba(0,0,0,0.4)",border:"1px solid rgba(255,255,255,0.15)" }}>
                 <img src={p.src} alt={p.title} style={{ display:"block",width:"100%",aspectRatio:p.aspect,objectFit:"cover" }} draggable={false}/>
                 <div style={{ position:"absolute",inset:0,background:"linear-gradient(to bottom,rgba(255,255,255,0.06) 0%,transparent 40%)",pointerEvents:"none" }}/>
@@ -775,17 +775,16 @@ export default function ZafreenMuseum() {
         <div style={{ position:"absolute",inset:0,background:"linear-gradient(to bottom,rgba(8,3,1,0) 0%,rgba(8,3,1,0.5) 70%,rgba(8,3,1,0.8) 100%)" }}/>
       </div>
       <Dust/>
-      <div style={{ position:"absolute",top:0,left:0,right:0,zIndex:10,padding:"14px 24px",display:"flex",alignItems:"center",justifyContent:"space-between" }}>
-        <div style={{ display:"flex",alignItems:"center",gap:16 }}>
-          <div style={{ fontSize:11,letterSpacing:6,color:"rgba(255,255,255,0.65)",textTransform:"uppercase" }}>Zafreen's Gallery</div>
-          <div style={{ position:"relative",display:"flex",alignItems:"center",gap:10 }}>
-            <button onClick={()=>setShowAbout(true)} style={{ background:"rgba(255,255,255,0.08)",backdropFilter:"blur(6px)",border:"1px solid rgba(255,255,255,0.15)",color:"rgba(255,255,255,0.55)",padding:"5px 14px",borderRadius:20,fontSize:10,letterSpacing:3,textTransform:"uppercase",cursor:"pointer",fontFamily:"'Cormorant Garamond',serif",transition:"all 0.2s" }}>✦ About</button>
-            <span style={{ fontSize:10,color:"rgba(255,255,255,0.35)",fontStyle:"italic",fontFamily:"'Cormorant Garamond',serif",letterSpacing:1,whiteSpace:"nowrap",animation:"fadeIn 2s ease" }}>← learn about the artist</span>
-          </div>
+      <div style={{ position:"absolute",top:0,left:0,right:0,zIndex:10,padding:"10px 14px",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:6 }}>
+        {/* Left: gallery name + about */}
+        <div style={{ display:"flex",alignItems:"center",gap:10,flexShrink:0 }}>
+          <div style={{ fontSize:9,letterSpacing:4,color:"rgba(255,255,255,0.65)",textTransform:"uppercase",whiteSpace:"nowrap" }}>Zafreen's Gallery</div>
+          <button onClick={()=>setShowAbout(true)} style={{ background:"rgba(255,255,255,0.08)",backdropFilter:"blur(6px)",border:"1px solid rgba(255,255,255,0.15)",color:"rgba(255,255,255,0.65)",padding:"4px 10px",borderRadius:20,fontSize:9,letterSpacing:2,textTransform:"uppercase",cursor:"pointer",fontFamily:"'Cormorant Garamond',serif",whiteSpace:"nowrap" }}>✦ About</button>
         </div>
-        <div style={{ display:"flex",flexDirection:"column",alignItems:"flex-end",gap:2 }}>
-          <div style={{ fontSize:11,letterSpacing:3,color:"rgba(255,255,255,0.5)",textTransform:"uppercase" }}>Welcome, {visitorName}</div>
-          <div style={{ fontSize:10,letterSpacing:2,color:"rgba(255,255,255,0.3)",textTransform:"uppercase" }}>{visitors.length} online · {totalVisitors} total visits</div>
+        {/* Right: welcome + stats */}
+        <div style={{ display:"flex",flexDirection:"column",alignItems:"flex-end",gap:1,flexShrink:0 }}>
+          <div style={{ fontSize:9,letterSpacing:2,color:"rgba(255,255,255,0.5)",textTransform:"uppercase",whiteSpace:"nowrap" }}>Welcome, {visitorName}</div>
+          <div style={{ fontSize:8,letterSpacing:1,color:"rgba(255,255,255,0.3)",textTransform:"uppercase",whiteSpace:"nowrap" }}>{visitors.length} online · {totalVisitors} visits</div>
         </div>
       </div>
       <div style={{ position:"absolute",top:0,left:0,right:0,bottom:"24%",zIndex:3 }}>
