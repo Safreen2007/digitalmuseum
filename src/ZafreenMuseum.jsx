@@ -175,8 +175,12 @@ body { overflow:hidden; }
 .brush-btn:hover { transform:scale(1.15) rotate(-15deg) !important; }
 .google-btn:hover { background:rgba(255,255,255,0.95) !important; transform:translateY(-1px); box-shadow:0 6px 20px rgba(0,0,0,0.3) !important; }
 canvas { touch-action:none; -webkit-touch-callout:none; -webkit-user-select:none; user-select:none; }
-@media (max-width:600px) {
+@media (max-width:768px) {
+  .desktop-bg-video { display:none !important; }
   .about-card { border-radius:14px !important; }
+}
+@media (min-width:769px) {
+  .mobile-bg-img { display:none !important; }
 }
 .about-card:hover { transform:scale(1.01); }
 `;
@@ -251,7 +255,7 @@ function AboutScreen({ onClose }) {
       {/* Big card */}
       <div className="about-card" style={{
         position:"relative",
-        width: isPortrait ? "min(580px, 88vw)" : "min(880px, 94vw)",
+        width: "min(880px, 95vw)",
         borderRadius:24,
         overflow:"hidden",
         boxShadow:"0 40px 100px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.1)",
@@ -260,7 +264,7 @@ function AboutScreen({ onClose }) {
       }}>
         {/* Video */}
         <video ref={videoRef} key={current} autoPlay loop muted playsInline
-          style={{ display:"block",width:"100%",height:"auto",objectFit:"cover",minHeight:isPortrait?"580px":"420px",maxHeight:"84vh" }}>
+          style={{ display:"block",width:"100%",height:"clamp(320px,70vh,700px)",objectFit:"cover" }}>
           <source src={slide.src} type="video/mp4"/>
         </video>
 
@@ -357,9 +361,12 @@ function AuthGate({ onEnter }) {
 
   return (
     <div style={{ position:"fixed",inset:0,zIndex:200,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Cormorant Garamond',serif",overflow:"hidden" }}>
-      <video autoPlay loop muted playsInline style={{ position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",zIndex:0 }}>
+      {/* Desktop: video bg */}
+      <video autoPlay loop muted playsInline style={{ position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",zIndex:0,display:"block" }} className="desktop-bg-video">
         <source src="/bgvideo.mp4" type="video/mp4"/>
       </video>
+      {/* Mobile: static image bg */}
+      <div className="mobile-bg-img" style={{ position:"absolute",inset:0,background:"url('/bgmobile.png') center/cover no-repeat",zIndex:0 }}/>
       <div style={{ position:"absolute",inset:0,background:"rgba(0,0,0,0.3)",zIndex:1 }}/>
 
       <div style={{ position:"relative",zIndex:2,textAlign:"center",opacity:vis?1:0,transform:vis?"none":"translateY(22px)",transition:"all 1.1s ease 0.2s",width:"90%",maxWidth:420 }}>
