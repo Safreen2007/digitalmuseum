@@ -640,7 +640,7 @@ function FocusRail({ paintings, likes, onLike, onActivePainting, onLooped }) {
           const isCtr=offset===0, dist=Math.abs(offset);
           return (
             <div key={active+offset} onClick={()=>{ if(offset!==0)setActive(a=>a+offset); }}
-              style={{ position:"absolute",width:isCtr?"min(300px,78vw)":"min(180px,45vw)",transform:`translateX(${offset*300}px) translateZ(${-dist*160}px) scale(${isCtr?1:0.82}) rotateY(${offset*-18}deg)`,opacity:isCtr?1:Math.max(0.1,1-dist*0.45),filter:`blur(${isCtr?0:dist*5}px)`,transition:"all 0.45s cubic-bezier(0.34,1.56,0.64,1)",zIndex:isCtr?10:5-dist,cursor:isCtr?"default":"pointer",borderRadius:12 }}>
+              style={{ position:"absolute",width:isCtr?"min(280px,72vw)":"min(140px,35vw)",transform:`translateX(${offset*260}px) translateZ(${-dist*140}px) scale(${isCtr?1:0.82}) rotateY(${offset*-18}deg)`,opacity:isCtr?1:Math.max(0.1,1-dist*0.45),filter:`blur(${isCtr?0:dist*5}px)`,transition:"all 0.45s cubic-bezier(0.34,1.56,0.64,1)",zIndex:isCtr?10:5-dist,cursor:isCtr?"default":"pointer",borderRadius:12 }}>
               <div style={{ position:"relative",borderRadius:12,overflow:"hidden",boxShadow:isCtr?"0 24px 64px rgba(0,0,0,0.6)":"0 8px 24px rgba(0,0,0,0.4)",border:"1px solid rgba(255,255,255,0.15)" }}>
                 <img src={p.src} alt={p.title} style={{ display:"block",width:"100%",aspectRatio:p.aspect,objectFit:"cover" }} draggable={false}/>
                 <div style={{ position:"absolute",inset:0,background:"linear-gradient(to bottom,rgba(255,255,255,0.06) 0%,transparent 40%)",pointerEvents:"none" }}/>
@@ -655,10 +655,10 @@ function FocusRail({ paintings, likes, onLike, onActivePainting, onLooped }) {
                 )}
               </div>
               {isCtr&&(
-                <div style={{ marginTop:14,textAlign:"center",fontFamily:"'Cormorant Garamond',serif",color:"#fff" }}>
-                  <div style={{ fontSize:20,fontWeight:300,letterSpacing:0.5,textShadow:"0 1px 8px rgba(0,0,0,0.5)" }}>{p.title}</div>
-                  <div style={{ fontSize:11,letterSpacing:4,color:"rgba(255,255,255,0.5)",textTransform:"uppercase",marginTop:4 }}>{p.medium} · {p.year}</div>
-                  <div style={{ fontSize:12,color:"rgba(255,255,255,0.4)",fontStyle:"italic",marginTop:6,maxWidth:220,margin:"6px auto 0" }}>{p.desc}</div>
+                <div style={{ marginTop:8,textAlign:"center",fontFamily:"'Cormorant Garamond',serif",color:"#fff",padding:"0 8px" }}>
+                  <div style={{ fontSize:16,fontWeight:300,letterSpacing:0.5,textShadow:"0 1px 8px rgba(0,0,0,0.5)" }}>{p.title}</div>
+                  <div style={{ fontSize:9,letterSpacing:3,color:"rgba(255,255,255,0.5)",textTransform:"uppercase",marginTop:3 }}>{p.medium} · {p.year}</div>
+                  <div style={{ fontSize:11,color:"rgba(255,255,255,0.4)",fontStyle:"italic",marginTop:4,maxWidth:220,margin:"4px auto 0",lineHeight:1.5 }}>{p.desc}</div>
                 </div>
               )}
             </div>
@@ -667,7 +667,7 @@ function FocusRail({ paintings, likes, onLike, onActivePainting, onLooped }) {
       </div>
       <button onClick={prev} style={{ position:"absolute",left:20,top:"45%",transform:"translateY(-50%)",zIndex:20,background:"rgba(0,0,0,0.35)",backdropFilter:"blur(6px)",border:"1px solid rgba(255,255,255,0.2)",color:"#fff",width:40,height:40,borderRadius:"50%",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>‹</button>
       <button onClick={next} style={{ position:"absolute",right:20,top:"45%",transform:"translateY(-50%)",zIndex:20,background:"rgba(0,0,0,0.35)",backdropFilter:"blur(6px)",border:"1px solid rgba(255,255,255,0.2)",color:"#fff",width:40,height:40,borderRadius:"50%",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>›</button>
-      <div style={{ position:"absolute",bottom:16,left:"50%",transform:"translateX(-50%)",zIndex:20,color:"rgba(255,255,255,0.6)",fontSize:11,letterSpacing:3,fontFamily:"'Cormorant Garamond',serif" }}>{ai+1} / {count}</div>
+      <div style={{ position:"absolute",bottom:8,left:"50%",transform:"translateX(-50%)",zIndex:20,color:"rgba(255,255,255,0.35)",fontSize:10,letterSpacing:3,fontFamily:"'Cormorant Garamond',serif" }}>{ai+1} / {count}</div>
     </div>
   );
 }
@@ -751,10 +751,10 @@ export default function ZafreenMuseum() {
           <div style={{ fontSize:8,letterSpacing:1,color:"rgba(255,255,255,0.3)",textTransform:"uppercase",whiteSpace:"nowrap" }}>{visitors.length} online · {totalVisitors} visits</div>
         </div>
       </div>
-      <div style={{ position:"absolute",top:0,left:0,right:0,bottom:"24%",zIndex:3 }}>
+      <div style={{ position:"absolute",top:48,left:0,right:0,bottom:"22%",zIndex:3 }}>
         <FocusRail paintings={PAINTINGS} likes={likes} onLike={handleLike} onActivePainting={setActivePainting} onLooped={handleLooped}/>
       </div>
-      <div style={{ position:"absolute",bottom:0,left:0,right:0,height:"28%",zIndex:5,pointerEvents:"none" }}>
+      <div style={{ position:"absolute",bottom:0,left:0,right:0,height:"22%",zIndex:5,pointerEvents:"none" }}>
         {visitors.map(v=><GlowOrb key={v.id} visitor={v} isMe={v.id===myId}/>)}
       </div>
       {showAbout&&<AboutScreen onClose={()=>setShowAbout(false)}/>}
