@@ -657,8 +657,6 @@ function FocusRail({ paintings, likes, onLike, onActivePainting, onLooped }) {
               {isCtr&&(
                 <div style={{ marginTop:8,textAlign:"center",fontFamily:"'Cormorant Garamond',serif",color:"#fff",padding:"0 8px" }}>
                   <div style={{ fontSize:16,fontWeight:300,letterSpacing:0.5,textShadow:"0 1px 8px rgba(0,0,0,0.5)" }}>{p.title}</div>
-                  <div style={{ fontSize:9,letterSpacing:3,color:"rgba(255,255,255,0.5)",textTransform:"uppercase",marginTop:3 }}>{p.medium} · {p.year}</div>
-                  <div style={{ fontSize:11,color:"rgba(255,255,255,0.4)",fontStyle:"italic",marginTop:4,maxWidth:220,margin:"4px auto 0",lineHeight:1.5 }}>{p.desc}</div>
                 </div>
               )}
             </div>
@@ -670,6 +668,9 @@ function FocusRail({ paintings, likes, onLike, onActivePainting, onLooped }) {
       <div style={{ position:"absolute",bottom:8,left:"50%",transform:"translateX(-50%)",zIndex:20,display:"flex",flexDirection:"column",alignItems:"center",gap:4 }}>
         <div style={{ color:"rgba(255,255,255,0.35)",fontSize:10,letterSpacing:3,fontFamily:"'Cormorant Garamond',serif" }}>{ai+1} / {count}</div>
         {ai < count-1 && <div style={{ color:"rgba(255,255,255,0.3)",fontSize:9,letterSpacing:2,fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",whiteSpace:"nowrap",animation:"fadeIn 1s ease" }}>✦ scroll to the end for a surprise</div>}
+        <div style={{ color:"rgba(255,255,255,0.25)",fontSize:9,letterSpacing:1,fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",textAlign:"center",lineHeight:1.8,marginTop:2 }}>
+          ❤️ tap the red heart to show the artist love<br/>✦ tap about to know more about the artist
+        </div>
       </div>
     </div>
   );
