@@ -209,23 +209,15 @@ function Dust() {
 // ── About Screen ──────────────────────────────────────────────────────────────
 const ABOUT_SLIDES = [
   {
-    src: "/goldenroadlighthousepomegranate.mp4",
-    ratio: "portrait",
     text: `"Hi, I'm Zafreen — a 19 year old girl who is just trying to be good at something." Growing up I was the kid who did all sorts of artistic activities. "Used to" is such a sad phrase — so let's try to change that, one painting at a time.`,
   },
   {
-    src: "/teastormatthesea.mp4",
-    ratio: "portrait",
     text: `I feel like painting is one of the arts that doesn't need an open stage to perform — every piece is unique and your very own masterpiece. I stopped painting for a long time because, as my Instagram bio says, it really makes me overthink.`,
   },
   {
-    src: "/koifishflowershop.mp4",
-    ratio: "landscape",
     text: `I sometimes feel it would only be a matter of time before I end up being one of those brilliant, slightly unhinged artists — but this gallery is also a fight against my own thoughts. Every painting comes with a silent victory. 🤍`,
   },
   {
-    src: "/twobirds.mp4",
-    ratio: "landscape",
     text: `This gallery is my first experiment — a small corner of the internet where I get to share what I make, quietly and on my own terms. I appreciate every single one of you who stopped by. Thank you for being here. 🎨`,
   },
 ];
@@ -235,88 +227,60 @@ function AboutScreen({ onClose }) {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    if (videoRef.current) { videoRef.current.load(); videoRef.current.play().catch(()=>{}); }
-  }, [current]);
+    if (videoRef.current) { videoRef.current.play().catch(()=>{}); }
+  }, []);
 
   const slide = ABOUT_SLIDES[current];
-  const isPortrait = slide.ratio === "portrait";
 
   return (
     <div style={{ position:"fixed",inset:0,zIndex:300,background:"url('/bg.png') center/cover no-repeat",fontFamily:"'Cormorant Garamond',serif",display:"flex",alignItems:"center",justifyContent:"center",overflow:"hidden" }}>
 
-
+      {/* Dark overlay on bg */}
+      <div style={{ position:"absolute",inset:0,background:"rgba(0,0,0,0.45)",pointerEvents:"none" }}/>
 
       {/* Header */}
       <div style={{ position:"absolute",top:0,left:0,right:0,zIndex:10,padding:"18px 24px",display:"flex",alignItems:"center",justifyContent:"space-between" }}>
-        <div style={{ fontSize:10,letterSpacing:6,color:"rgba(255,255,255,0.3)",textTransform:"uppercase" }}>About the Artist</div>
+        <div style={{ fontSize:10,letterSpacing:6,color:"rgba(255,255,255,0.5)",textTransform:"uppercase" }}>About the Artist</div>
         <button onClick={onClose} style={{ background:"rgba(255,255,255,0.08)",backdropFilter:"blur(8px)",border:"1px solid rgba(255,255,255,0.15)",color:"rgba(255,255,255,0.7)",width:36,height:36,borderRadius:"50%",fontSize:17,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>×</button>
       </div>
 
-      {/* Big card */}
-      <div className="about-card" style={{
-        position:"relative",
-        width: "min(880px, 95vw)",
-        borderRadius:24,
-        overflow:"hidden",
-        boxShadow:"0 40px 100px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.1)",
-        transition:"width 0.4s ease, transform 0.3s ease",
-        maxHeight:"84vh",
-      }}>
-        {/* Video */}
-        <video ref={videoRef} key={current} autoPlay loop muted playsInline
-          style={{ display:"block",width:"100%",height:"clamp(320px,70vh,700px)",objectFit:"cover" }}>
-          <source src={slide.src} type="video/mp4"/>
+      {/* Card — single video loops forever, only text changes */}
+      <div className="about-card" style={{ position:"relative",width:"min(480px,92vw)",borderRadius:24,overflow:"hidden",boxShadow:"0 40px 100px rgba(0,0,0,0.85),0 0 0 1px rgba(255,255,255,0.12)",zIndex:1 }}>
+
+        {/* Single looping video — never remounts */}
+        <video ref={videoRef} autoPlay loop muted playsInline
+          style={{ display:"block",width:"100%",height:"clamp(340px,65vh,620px)",objectFit:"cover" }}>
+          <source src="/aboutvideo.mp4" type="video/mp4"/>
         </video>
 
-        {/* Full overlay — dark gradient everywhere so text reads */}
-        <div style={{ position:"absolute",inset:0,background:"linear-gradient(to bottom,rgba(0,0,0,0.08) 0%,rgba(0,0,0,0.12) 40%,rgba(0,0,0,0.32) 70%,rgba(0,0,0,0.48) 100%)",pointerEvents:"none" }}/>
+        {/* Gradient overlay */}
+        <div style={{ position:"absolute",inset:0,background:"linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.1) 40%,rgba(0,0,0,0.6) 65%,rgba(0,0,0,0.85) 100%)",pointerEvents:"none" }}/>
 
-        {/* Text — centered in middle of card */}
-        <div style={{
-          position:"absolute",
-          inset:0,
-          display:"flex",
-          alignItems:"center",
-          justifyContent:"center",
-          padding:"clamp(28px,5vw,64px)",
-          textAlign:"center",
-        }}>
-          <p style={{
-            fontSize:"clamp(11px,1.1vw,13px)",
-            color:"rgba(255,255,255,0.92)",
-            lineHeight:2.1,
-            letterSpacing:"0.12em",
-            fontStyle:"italic",
-            textShadow:"0 1px 12px rgba(0,0,0,0.8)",
-            maxWidth:480,
-          }}>
+        {/* Text bottom */}
+        <div style={{ position:"absolute",bottom:0,left:0,right:0,padding:"clamp(20px,4vw,40px)",textAlign:"center" }}>
+          <p style={{ fontSize:"clamp(11px,1.2vw,14px)",color:"rgba(255,255,255,0.92)",lineHeight:2,letterSpacing:"0.1em",fontStyle:"italic",textShadow:"0 1px 12px rgba(0,0,0,0.9)" }}>
             {slide.text}
           </p>
         </div>
 
         {/* Counter */}
-        <div style={{ position:"absolute",top:16,right:16,background:"rgba(0,0,0,0.5)",backdropFilter:"blur(10px)",borderRadius:20,padding:"4px 14px",fontSize:10,letterSpacing:3,color:"rgba(255,255,255,0.45)",textTransform:"uppercase" }}>
+        <div style={{ position:"absolute",top:14,right:14,background:"rgba(0,0,0,0.5)",backdropFilter:"blur(10px)",borderRadius:20,padding:"4px 12px",fontSize:10,letterSpacing:3,color:"rgba(255,255,255,0.45)",textTransform:"uppercase" }}>
           {current+1} / {ABOUT_SLIDES.length}
         </div>
 
-        {/* Prev arrow */}
+        {/* Arrows */}
         {current > 0 && (
           <button onClick={()=>setCurrent(p=>p-1)}
-            style={{ position:"absolute",left:16,top:"50%",transform:"translateY(-50%)",zIndex:10,background:"rgba(0,0,0,0.45)",backdropFilter:"blur(8px)",border:"1px solid rgba(255,255,255,0.2)",color:"#fff",width:46,height:46,borderRadius:"50%",fontSize:24,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>
-            ‹
-          </button>
+            style={{ position:"absolute",left:12,top:"42%",transform:"translateY(-50%)",zIndex:10,background:"rgba(0,0,0,0.4)",backdropFilter:"blur(8px)",border:"1px solid rgba(255,255,255,0.2)",color:"#fff",width:42,height:42,borderRadius:"50%",fontSize:22,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>‹</button>
         )}
-        {/* Next arrow */}
         {current < ABOUT_SLIDES.length-1 && (
           <button onClick={()=>setCurrent(p=>p+1)}
-            style={{ position:"absolute",right:16,top:"50%",transform:"translateY(-50%)",zIndex:10,background:"rgba(0,0,0,0.45)",backdropFilter:"blur(8px)",border:"1px solid rgba(255,255,255,0.2)",color:"#fff",width:46,height:46,borderRadius:"50%",fontSize:24,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>
-            ›
-          </button>
+            style={{ position:"absolute",right:12,top:"42%",transform:"translateY(-50%)",zIndex:10,background:"rgba(0,0,0,0.4)",backdropFilter:"blur(8px)",border:"1px solid rgba(255,255,255,0.2)",color:"#fff",width:42,height:42,borderRadius:"50%",fontSize:22,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>›</button>
         )}
       </div>
 
       {/* Dots */}
-      <div style={{ position:"absolute",bottom:22,left:"50%",transform:"translateX(-50%)",display:"flex",gap:8 }}>
+      <div style={{ position:"absolute",bottom:22,left:"50%",transform:"translateX(-50%)",display:"flex",gap:8,zIndex:2 }}>
         {ABOUT_SLIDES.map((_,i)=>(
           <div key={i} onClick={()=>setCurrent(i)}
             style={{ width:i===current?22:7,height:7,borderRadius:4,background:i===current?"rgba(255,255,255,0.85)":"rgba(255,255,255,0.25)",cursor:"pointer",transition:"all 0.3s" }}/>
