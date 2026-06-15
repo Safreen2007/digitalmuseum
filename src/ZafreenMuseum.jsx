@@ -665,12 +665,8 @@ function FocusRail({ paintings, likes, onLike, onActivePainting, onLooped }) {
       </div>
       <button onClick={prev} style={{ position:"absolute",left:20,top:"45%",transform:"translateY(-50%)",zIndex:20,background:"rgba(0,0,0,0.35)",backdropFilter:"blur(6px)",border:"1px solid rgba(255,255,255,0.2)",color:"#fff",width:40,height:40,borderRadius:"50%",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>‹</button>
       <button onClick={next} style={{ position:"absolute",right:20,top:"45%",transform:"translateY(-50%)",zIndex:20,background:"rgba(0,0,0,0.35)",backdropFilter:"blur(6px)",border:"1px solid rgba(255,255,255,0.2)",color:"#fff",width:40,height:40,borderRadius:"50%",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>›</button>
-      <div style={{ position:"absolute",bottom:8,left:"50%",transform:"translateX(-50%)",zIndex:20,display:"flex",flexDirection:"column",alignItems:"center",gap:4 }}>
-        <div style={{ color:"rgba(255,255,255,0.35)",fontSize:10,letterSpacing:3,fontFamily:"'Cormorant Garamond',serif" }}>{ai+1} / {count}</div>
-        {ai < count-1 && <div style={{ color:"rgba(255,255,255,0.3)",fontSize:9,letterSpacing:2,fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",whiteSpace:"nowrap",animation:"fadeIn 1s ease" }}>✦ scroll to the end for a surprise</div>}
-        <div style={{ color:"rgba(255,255,255,0.25)",fontSize:9,letterSpacing:1,fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",textAlign:"center",lineHeight:1.8,marginTop:2 }}>
-          ❤️ tap the red heart to show the artist love<br/>✦ tap about to know more about the artist
-        </div>
+      <div style={{ position:"absolute",bottom:6,left:"50%",transform:"translateX(-50%)",zIndex:20,display:"flex",flexDirection:"column",alignItems:"center",gap:3 }}>
+        <div style={{ color:"rgba(255,255,255,0.45)",fontSize:10,letterSpacing:3,fontFamily:"'Cormorant Garamond',serif" }}>{ai+1} / {count}</div>
       </div>
     </div>
   );
@@ -761,6 +757,14 @@ export default function ZafreenMuseum() {
       <div style={{ position:"absolute",bottom:0,left:0,right:0,height:"22%",zIndex:5,pointerEvents:"none" }}>
         {visitors.map(v=><GlowOrb key={v.id} visitor={v} isMe={v.id===myId}/>)}
       </div>
+      {/* Hint texts — fixed at bottom */}
+      <div style={{ position:"absolute",bottom:4,left:0,right:0,zIndex:6,display:"flex",flexDirection:"column",alignItems:"center",gap:3,pointerEvents:"none",padding:"0 12px" }}>
+        <div style={{ color:"rgba(255,255,255,0.65)",fontSize:11,letterSpacing:1,fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",textAlign:"center",lineHeight:1.7,background:"rgba(0,0,0,0.35)",backdropFilter:"blur(6px)",padding:"6px 16px",borderRadius:20 }}>
+          ❤️ tap the red heart to show the artist love &nbsp;·&nbsp; ✦ tap <strong>About</strong> to know the artist<br/>
+          <span style={{ fontSize:10,color:"rgba(255,255,255,0.45)" }}>✦ scroll to the last painting for a surprise</span>
+        </div>
+      </div>
+
       {showAbout&&<AboutScreen onClose={()=>setShowAbout(false)}/>}
       {showLoopPopup&&<LoopPopup onGoCanvas={()=>{ setShowLoopPopup(false); setBrushUnlocked(true); setShowCanvas(true); try{logDrawing(visitorName,authorId);}catch(e){} }} onStay={()=>{ setShowLoopPopup(false); setBrushUnlocked(true); }}/>}
       {brushUnlocked&&!showLoopPopup&&<BrushButton onClick={()=>{ setShowCanvas(true); try{logDrawing(visitorName,authorId);}catch(e){} }}/>}
