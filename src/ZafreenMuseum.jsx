@@ -424,7 +424,7 @@ function BrushButton({ onClick }) {
 }
 
 const DB_COLORS = ["#1a1a1a","#ef4444","#f97316","#eab308","#22c55e","#3b82f6","#8b5cf6","#ec4899","#ffffff","#64748b","#7c3aed","#0ea5e9","#f472b6","#a3e635","#fb923c","#34d399"];
-const DB_TOOLS  = [{id:"pen",label:"✏️"},{id:"brush",label:"🖌️"},{id:"eraser",label:"🧹"}];
+const DB_TOOLS  = [{id:"pen",label:"✏️"},{id:"brush",label:"🖌️"}];
 const DB_SIZES  = [2,5,10,18,28];
 const TOOLBAR_H = 110; // two rows on mobile
 
@@ -667,7 +667,10 @@ function FocusRail({ paintings, likes, onLike, onActivePainting, onLooped }) {
       </div>
       <button onClick={prev} style={{ position:"absolute",left:20,top:"45%",transform:"translateY(-50%)",zIndex:20,background:"rgba(0,0,0,0.35)",backdropFilter:"blur(6px)",border:"1px solid rgba(255,255,255,0.2)",color:"#fff",width:40,height:40,borderRadius:"50%",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>‹</button>
       <button onClick={next} style={{ position:"absolute",right:20,top:"45%",transform:"translateY(-50%)",zIndex:20,background:"rgba(0,0,0,0.35)",backdropFilter:"blur(6px)",border:"1px solid rgba(255,255,255,0.2)",color:"#fff",width:40,height:40,borderRadius:"50%",fontSize:20,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" }}>›</button>
-      <div style={{ position:"absolute",bottom:8,left:"50%",transform:"translateX(-50%)",zIndex:20,color:"rgba(255,255,255,0.35)",fontSize:10,letterSpacing:3,fontFamily:"'Cormorant Garamond',serif" }}>{ai+1} / {count}</div>
+      <div style={{ position:"absolute",bottom:8,left:"50%",transform:"translateX(-50%)",zIndex:20,display:"flex",flexDirection:"column",alignItems:"center",gap:4 }}>
+        <div style={{ color:"rgba(255,255,255,0.35)",fontSize:10,letterSpacing:3,fontFamily:"'Cormorant Garamond',serif" }}>{ai+1} / {count}</div>
+        {ai < count-1 && <div style={{ color:"rgba(255,255,255,0.3)",fontSize:9,letterSpacing:2,fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",whiteSpace:"nowrap",animation:"fadeIn 1s ease" }}>✦ scroll to the end for a surprise</div>}
+      </div>
     </div>
   );
 }
